@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Server";
+
+package animals;
+
+service Cats {
+    rpc GetRandomCat(GetRandomCatRequest) returns (stream CatStreamReply);
+}
+
+message GetRandomCatRequest {}
+
+message CatStreamReply {
+    bytes image_stream = 1;
+}
