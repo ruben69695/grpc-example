@@ -2,15 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsOSX)'=='true'">
+    <DefineConstants>MACOS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\cats.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data/cats.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

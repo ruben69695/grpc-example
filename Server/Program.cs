@@ -17,6 +17,12 @@ namespace Server
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
+                    #if MACOS
+                        webBuilder.ConfigureKestrel(options => {
+                            options.ListenLocalhost(5000, o => o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2);    
+                        });
+                    #endif
                 });
     }
 }
